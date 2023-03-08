@@ -1,0 +1,19 @@
+name: Validate Helm Charts
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  kubeconform:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Generate and validate releases
+      uses: shivjm/helm-kubeconform-action@v0.2.0
+      with:
+        additionalSchemaPaths: |
+          schemas/{{ .ResourceKind }}.json
+        chartsDirectory: "charts"
