@@ -1,0 +1,9 @@
+apiVersion: v2
+name: ghost
+description: A Helm chart for running Ghost on Kubernetes
+type: application
+maintainers:
+  - name: Element SRE Team
+
+version: "0.81.0"
+appVersion: "5.37.0-alpine"
