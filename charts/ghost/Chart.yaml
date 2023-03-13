@@ -5,5 +5,5 @@ type: application
 maintainers:
   - name: Element SRE Team
 
-version: "0.81.0"
-appVersion: "5.37.0-alpine"
+version: "0.82.0"
+appVersion: "5.38.0-alpine"
