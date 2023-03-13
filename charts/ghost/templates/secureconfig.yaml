@@ -11,7 +11,6 @@ data:
   database__connection__host: {{ .host | b64enc }}
   database__connection__port: {{ (.port | default "3306") | toString | b64enc }}
   database__connection__user: {{ .user | b64enc }}
-  database__connection__password: {{ .password | b64enc }}
   database__connection__database: {{ .name | b64enc }}
   {{- else }}
   database__client: {{ "sqlite3" | b64enc }}
@@ -19,6 +18,9 @@ data:
   {{- end }}
 {{- end }}
 {{- with .Values.customSecrets }}
+  {{- if .databasePassword }}
+  database__connection__password: {{ .databasePassword | b64enc }}
+  {{- end }}
   {{- if .smtpUser }}
   mail__options__auth__user: {{ .smtpUser | b64enc }}
   {{- end }}

@@ -148,8 +148,8 @@ database:
   name: ghost
 
   ## Database settings (only mysql)
+  ## Password comes from custom secrets
   user:
-  password:
   host:
   port:
 
@@ -162,6 +162,7 @@ settings:
   mode: production
 
   ## SMTP connection details
+  ## Username and password come from custom secrets
   mail:
     from: noreply@blog.example.com
     transport: SMTP
@@ -169,8 +170,6 @@ settings:
     host: email-smtp.eu-central-1.amazonaws.com
     port: 465
     service: SES
-    user:
-    password:
 
 ## Storage parameters
 storage:
