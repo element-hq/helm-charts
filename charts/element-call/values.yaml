@@ -85,3 +85,11 @@ config:
   homeserver:
     base_url: http://localhost:8008
     server_name: localhost
+  livekit:
+    server_url: wss://localhost
+    jwt_service_url: https://localhost
+  posthog:
+    api_key:
+    api_host: https://localhost
+  rageshake:
+    submit_url:
