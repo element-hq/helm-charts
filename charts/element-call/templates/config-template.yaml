@@ -12,7 +12,7 @@ data:
         }
       },
       "livekit": {
-        "livekit_service_url": "{{ .Values.config.livekit_service_url }}"
+        "livekit_service_url": "{{ .Values.config.livekit.livekit_service_url }}"
       },
       "posthog": {
         "api_key": "{{ .Values.config.posthog.api_key }}",
