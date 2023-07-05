@@ -1,5 +1,17 @@
 apiVersion: v1
 entries:
+  element-call:
+  - apiVersion: v2
+    appVersion: v0.3.13
+    created: "2023-07-05T10:41:27.274319635Z"
+    description: A Helm chart for Element Call
+    digest: 16f296a45378e8e76b61c03ef54db5c1785fefcb22b85b07535d5c3e8ea938e9
+    icon: https://avatars.githubusercontent.com/u/13446337?s=48&v=4
+    name: element-call
+    type: application
+    urls:
+    - https://github.com/vector-im/helm-charts/releases/download/element-call-0.1.0/element-call-0.1.0.tgz
+    version: 0.1.0
   ghost:
   - apiVersion: v2
     appVersion: 5.38.0-alpine
@@ -25,4 +37,4 @@ entries:
     urls:
     - https://github.com/vector-im/helm-charts/releases/download/ghost-0.81.0/ghost-0.81.0.tgz
     version: 0.81.0
-generated: "2023-03-13T10:15:54.806179607Z"
+generated: "2023-07-05T10:41:27.274331536Z"
