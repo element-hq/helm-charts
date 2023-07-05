@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  config.json: |
+    {
+      "default_server_config": {
+        "m.homeserver": {
+          "base_url": "{{ .Values.config.homeserver.base_url }}",
+          "server_name": "{{ .Values.config.homeserver.server_name }}"
+        }
+      }
+    }
