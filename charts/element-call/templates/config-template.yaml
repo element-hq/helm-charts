@@ -20,5 +20,6 @@ data:
       },
       "rageshake": {
         "submit_url": "{{ .Values.config.rageshake.submit_url }}"
-      }
+      },
+      "eula": "https://static.element.io/legal/online-EULA.pdf"
     }
