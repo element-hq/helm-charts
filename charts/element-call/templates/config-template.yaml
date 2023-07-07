@@ -20,6 +20,6 @@ data:
       },
       "rageshake": {
         "submit_url": "{{ .Values.config.rageshake.submit_url }}"
-      }
+      },
       "eula": "{{ .Values.config.eula_url }}"
     }
