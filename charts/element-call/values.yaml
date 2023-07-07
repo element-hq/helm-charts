@@ -92,3 +92,4 @@ config:
     api_host: https://localhost
   rageshake:
     submit_url:
+  eula_url:
