@@ -5,7 +5,7 @@ type: application
 maintainers:
   - name: Element SRE Team
 
-version: "0.82.1"
+version: "0.82.2"
 # Track the appVersion based on the image:
 # renovate: image=ghost
-appVersion: "5.54.3-alpine"
+appVersion: "5.54.4-alpine"
