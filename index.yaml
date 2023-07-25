@@ -105,4 +105,16 @@ entries:
     urls:
     - https://github.com/vector-im/helm-charts/releases/download/ghost-0.81.0/ghost-0.81.0.tgz
     version: 0.81.0
-generated: "2023-07-24T08:39:57.814697122Z"
+  mscbot:
+  - apiVersion: v2
+    appVersion: release-v0.1.7
+    created: "2023-07-25T15:48:52.671463092Z"
+    description: A Helm chart for matrix mscbot
+    digest: 58c017ef1f0d62e460a781abe6b966157ed11573e5969db194fb498a66ff8ba6
+    icon: https://www.gravatar.com/avatar/99ad90c985fc5dd540a79471358d9b50
+    name: mscbot
+    type: application
+    urls:
+    - https://github.com/vector-im/helm-charts/releases/download/mscbot-0.1.0/mscbot-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-07-25T15:48:52.671478092Z"
