@@ -1,0 +1,15 @@
+apiVersion: v2
+name: mscbot
+description: A Helm chart for matrix mscbot
+icon: https://www.gravatar.com/avatar/99ad90c985fc5dd540a79471358d9b50
+type: application
+
+# This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: "0.1.0"
+
+# This version number should be incremented each time you make changes
+# to the application.
+# Track the appVersion based on the image:
+# renovate: image=matrixdotorg/mscbot-python
+appVersion: "release-v0.1.7"

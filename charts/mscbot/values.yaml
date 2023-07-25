@@ -1,0 +1,150 @@
+# Default values for mscbot.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: matrixdotorg/mscbot-python
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 5050
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: mscbot.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: mscbot-tls
+  #    hosts:
+  #      - mscbot.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 100
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+config:
+  github:
+    # Your github access token. Create one at https://github.com/settings/tokens
+    # Needs repo:public_repo and admin:org:read:org permissions
+    access_token: 1234567890abcdefghijklmnopqrstuvwxyz
+    labels:
+      # Denotes an issue/pr as a proposal
+      proposal: proposal
+      # The label that denotes a proposal is in review
+      proposal_in_review: proposal-in-review
+      # The label that denotes a proposal is in fcp
+      fcp: final-comment-period
+      # Denotes a proposal as fcp proposed
+      fcp_proposed: proposed-final-comment-period
+      # Denotes a proposal as fcp finished
+      fcp_finished: finished-final-comment-period
+      # Denotes a proposal as fcp proposed with a disposition of merge
+      disposition_merge: disposition-merge
+      # Denotes a proposal as fcp proposed with a disposition of close
+      disposition_close: disposition-close
+      # Denotes a proposal as fcp proposed with a disposition of postpone
+      disposition_postpone: disposition-postpone
+      # Denotes a proposal current has outstanding concerns
+      unresolved_concerns: unresolved-concerns
+    # The repository where proposals are stored
+    repo: matrix-org/matrix-spec-proposals
+    # Organization containing the proposal team
+    org: matrix-org
+    # Team name whose members have the power to influence proposals
+    team: spec-core-team
+    # Path to a jinja2 template for the text that the bot will post when an FCP is proposed
+    fcp_proposal_template_path: comment_templates/fcp_proposal.j2
+
+  fcp:
+    # Length of a final comment period in days
+    time_days: 5
+    # Required percentage of team votes to pass an FCP proposal
+    required_team_vote_ratio: 0.75
+
+  database:
+    # The path to a postgres database for state storage
+    path: "postgres://mscbot:itsasecret@localhost/mscbot?sslmode=disable"
+
+  webhook:
+    # Address to listen on
+    host: 0.0.0.0
+    # Port to listen on
+    port: 5050
+    # Path to listen for
+    path: /webhook
+    # Your webhook secret that was given to github
+    secret: zyxwvutsrqponmlkjihgfedcba0987654321
+
+  logging:
+    # Max logging level
+    # Allowed levels are 'INFO', 'WARNING', 'ERROR', 'DEBUG' where DEBUG is the most verbose
+    level: INFO
+    # Configure logging to a file
+    file_logging:
+      # Whether logging to a file is enabled
+      enabled: false
+      # The path to the file to log to. May be absolute or relative
+      filepath: mscbot.log
+    # Configure logging to the console output
+    console_logging:
+      # Whether logging to the console is enabled
+      enabled: true

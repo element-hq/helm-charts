@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-configmap
+data:
+  config.yaml: |-
+    github:
+      access_token: {{ .Values.config.github.access_token }}
+      labels:
+        proposal: {{ .Values.config.github.labels.proposal }}
+        proposal_in_review: {{ .Values.config.github.labels.proposal_in_review }}
+        fcp: {{ .Values.config.github.labels.fcp }}
+        fcp_proposed: {{ .Values.config.github.labels.fcp_proposed }}
+        fcp_finished: {{ .Values.config.github.labels.fcp_finished }}
+        disposition_merge: {{ .Values.config.github.labels.disposition_merge }}
+        disposition_close: {{ .Values.config.github.labels.disposition_close }}
+        disposition_postpone: {{ .Values.config.github.labels.disposition_postpone }}
+        unresolved_concerns: {{ .Values.config.github.labels.unresolved_concerns }}
+      repo: {{ .Values.config.github.repo }}
+      org: {{ .Values.config.github.org }}
+      team: {{ .Values.config.github.team }}
+      fcp_proposal_template_path: {{ .Values.config.github.fcp_proposal_template_path }}
+
+    fcp:
+      time_days: {{ .Values.config.fcp.time_days }}
+      required_team_vote_ratio: {{ .Values.config.fcp.required_team_vote_ratio }}
+
+    database:
+      path: {{ .Values.config.database.path }}
+
+    webhook:
+      host: {{ .Values.config.webhook.host }}
+      port: {{ .Values.config.webhook.port }}
+      path: {{ .Values.config.webhook.path }}
+      secret: {{ .Values.config.webhook.secret }}
+
+    logging:
+      level: {{ .Values.config.logging.level }}
+      file_logging:
+        enabled: {{ .Values.config.logging.file_logging.enabled }}
+        filepath: {{ .Values.config.logging.file_logging.filepath }}
+      console_logging:
+        enabled: {{ .Values.config.logging.console_logging.enabled }}
