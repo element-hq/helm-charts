@@ -2,6 +2,17 @@ apiVersion: v1
 entries:
   element-call:
   - apiVersion: v2
+    appVersion: v0.4.3
+    created: "2023-09-18T11:34:28.787161956Z"
+    description: A Helm chart for Element Call
+    digest: 541ebbbeb021505479d3d2380470897b883161f80c39efc659d03e0cca69329a
+    icon: https://avatars.githubusercontent.com/u/13446337?s=48&v=4
+    name: element-call
+    type: application
+    urls:
+    - https://github.com/vector-im/helm-charts/releases/download/element-call-0.1.5/element-call-0.1.5.tgz
+    version: 0.1.5
+  - apiVersion: v2
     appVersion: v0.4.2
     created: "2023-07-18T09:20:27.867987276Z"
     description: A Helm chart for Element Call
@@ -177,4 +188,4 @@ entries:
     urls:
     - https://github.com/vector-im/helm-charts/releases/download/mscbot-0.1.0/mscbot-0.1.0.tgz
     version: 0.1.0
-generated: "2023-09-18T11:33:07.959698932Z"
+generated: "2023-09-18T11:34:28.787204057Z"
