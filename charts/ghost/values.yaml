@@ -56,26 +56,23 @@ service:
 
 ## Ingress configuration
 ingress:
-  enabled: true
-  className: nginx-public
-  annotations:
-    cert-manager.io/cluster-issuer: le-prod-public-cloudflare
-    acme.cert-manager.io/http01-ingress-class: "nginx-public"
-    external.dns/managed-by: "cloudflare"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      location ~* "^/metrics" {
-          deny all;
-          return 403;
-        }
+  enabled: false
+  className: ""
+  annotations: {}
+    # nginx.ingress.kubernetes.io/server-snippet: |
+    #   location ~* "^/metrics" {
+    #       deny all;
+    #       return 403;
+    #     }
   hosts:
   - host: blog.example.com
     paths:
     - path: /
       pathType: ImplementationSpecific
-  tls:
-  - secretName: blog-example-com-tls
-    hosts:
-    - blog.example.com
+  tls: []
+  # - secretName: blog-example-com-tls
+  #   hosts:
+  #   - blog.example.com
 
 ## Resource limits and requests
 resources:
