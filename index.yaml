@@ -91,6 +91,18 @@ entries:
     version: 0.1.0
   ghost:
   - apiVersion: v2
+    appVersion: 5.69.2-alpine
+    created: "2023-10-17T16:27:09.127398528Z"
+    description: A Helm chart for running Ghost on Kubernetes
+    digest: b33ff1fb68d8026bb0d298335fa3c0aae663d65588fadec2c07b901628318991
+    maintainers:
+    - name: Element SRE Team
+    name: ghost
+    type: application
+    urls:
+    - https://github.com/vector-im/helm-charts/releases/download/ghost-0.84.3/ghost-0.84.3.tgz
+    version: 0.84.3
+  - apiVersion: v2
     appVersion: 5.62.0-alpine
     created: "2023-10-12T12:54:05.354137036Z"
     description: A Helm chart for running Ghost on Kubernetes
@@ -222,4 +234,4 @@ entries:
     urls:
     - https://github.com/vector-im/helm-charts/releases/download/mscbot-0.1.0/mscbot-0.1.0.tgz
     version: 0.1.0
-generated: "2023-10-17T16:26:58.306760085Z"
+generated: "2023-10-17T16:27:09.127475431Z"
