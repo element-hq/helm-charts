@@ -6,7 +6,7 @@ type: application
 
 # This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
-version: "0.1.6"
+version: "0.1.7"
 
 # This version number should be incremented each time you make changes
 # to the application.
