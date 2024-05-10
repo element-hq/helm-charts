@@ -1,0 +1,216 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "bookstack.fullname" . }}
+  labels:
+    {{- include "bookstack.labels" . | nindent 4 }}
+spec:
+  replicas: 1
+  {{- if .Values.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "bookstack.selectorLabels" . | nindent 6 }}
+  {{- with .Values.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  template:
+    metadata:
+      annotations:
+        checksum/secret: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+    {{- with .Values.podAnnotations }}
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      labels:
+        {{- include "bookstack.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "bookstack.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: {{ include "bookstack.fullname" . }}
+          env:
+            {{- if .Values.settings.url }}
+            - name: APP_URL
+              value: {{ .Values.settings.url | quote }}
+            {{- end }}
+            {{- if .Values.settings.debug }}
+            - name: APP_DEBUG
+              value: {{ .Values.settings.debug | quote }}
+            {{- end }}
+            {{- if .Values.settings.sessionLifetime }}
+            - name: SESSION_LIFETIME
+              value: {{ .Values.settings.sessionLifetime | quote }}
+            {{- end }}
+            {{- if .Values.settings.tz }}
+            - name: TZ
+              value: {{ .Values.settings.tz | quote }}
+            {{- end }}
+            {{- if .Values.settings.authSaml2.enabled }}
+            - name: AUTH_METHOD
+              value: "saml2"
+            {{- with .Values.settings.authSaml2 }}
+            - name: SAML2_AUTOLOAD_METADATA
+              value: {{ .autoloadMetadata | quote }}
+            - name: SAML2_DISPLAY_NAME_ATTRIBUTES
+              value: {{ .displayNameAttribute | quote }}
+            - name: SAML2_EMAIL_ATTRIBUTE
+              value: {{ .emailAttribute | quote }}
+            - name: SAML2_EXTERNAL_ID_ATTRIBUTE
+              value: {{ .externalIdAttribute | quote }}
+            - name: SAML2_GROUP_ATTRIBUTE
+              value: {{ .groupAttribute | quote }}
+            - name: SAML2_IDP_AUTHNCONTEXT
+              value: {{ .idpAuthnContent | quote }}
+            - name: SAML2_IDP_ENTITYID
+              value: {{ .idpEntityId | quote }}
+            - name: SAML2_NAME
+              value: {{ .name | quote }}
+            - name: SAML2_REMOVE_FROM_GROUPS
+              value: {{ .removeFromGroups | quote }}
+            - name: SAML2_USER_TO_GROUPS
+              value: {{ .userToGroups | quote }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.settings.mail.enabled }}
+            {{- with .Values.settings.mail }}
+            - name: MAIL_DRIVER
+              value: {{ .transport | quote }}
+            - name: MAIL_ENCRYPTION
+              value: {{ .encryption | quote }}
+            - name: MAIL_FROM
+              value: {{ .from | quote }}
+            - name: MAIL_FROM_NAME
+              value: {{ .displayName | quote }}
+            - name: MAIL_HOST
+              value: {{ .host | quote }}
+            - name: MAIL_PORT
+              value: {{ .port | quote }}
+            {{- end }}
+            {{- end }}
+          {{- with .Values.env }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+
+          {{- if .Values.customStartupProbe }}
+          startupProbe:
+            {{- toYaml .Values.customStartupProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:2368
+          {{- with .Values.startupProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.customLivenessProbe }}
+          livenessProbe:
+            {{- toYaml .Values.customLivenessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.livenessProbe.enabled }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:2368
+          {{- with .Values.livenessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.customReadinessProbe }}
+          readinessProbe:
+            {{- toYaml .Values.customReadinessProbe | nindent 12 }}
+          {{- else }}
+          {{- if .Values.readinessProbe.enabled }}
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+              httpHeaders:
+                - name: Host
+                  value: localhost:2368
+          {{- with .Values.readinessProbe }}
+            initialDelaySeconds: {{ .initialDelaySeconds }}
+            timeoutSeconds: {{ .timeoutSeconds }}
+            failureThreshold: {{ .failureThreshold }}
+            successThreshold: {{ .successThreshold }}
+            periodSeconds: {{ .periodSeconds }}
+          {{- end }}
+          {{- end }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- if .Values.args }}
+          args:
+            {{- range .Values.args }}
+            - {{ . }}
+            {{- end }}
+          {{- end }}
+          volumeMounts:
+            - mountPath: /config
+              name: bookstack-vol
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      volumes:
+        - name: bookstack-vol
+        {{- if .Values.storage.persistentVolumeClaimName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storage.persistentVolumeClaimName }}
+        {{- else }}
+        {{- if .Values.storage.requestedSize }}
+          persistentVolumeClaim:
+            claimName: {{ include "bookstack.fullname" . }}
+        {{- else }}
+          emptyDir: {}
+        {{- end }}
+        {{- end }}

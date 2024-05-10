@@ -1,0 +1,14 @@
+apiVersion: v2
+name: bookstack
+description: A Helm chart for running bookstack on Kubernetes
+type: application
+maintainers:
+  - name: Element SRE Team
+
+# This version number should be incremented each time you make changes
+# to the chart and its templates, including the app version.
+version: "0.1.0"
+
+# Track the appVersion based on the image:
+# renovate: image=ghcr.io/linuxserver/bookstack
+appVersion: "version-v23.02.1"

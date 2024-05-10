@@ -1,0 +1,192 @@
+## Default values for the bookstack deployment
+
+## bookstack docker image
+image:
+  registry: "ghcr.io"
+  repository: "linuxserver/bookstack"
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+## Pod deployment strategy
+strategy:
+  type: Recreate
+
+## Optional service account
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: false
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+podAnnotations: {}
+
+## Pod security options
+podSecurityContext:
+  fsGroup: 1000
+
+## Default security options to run bookstack as read only container without privilege escalation
+securityContext:
+  allowPrivilegeEscalation: false
+  privileged: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsGroup: 1000
+  runAsUser: 1000
+
+## Default bookstack service port (default web service port)
+service:
+  type: ClusterIP
+  port: 80
+  ## The node port (only relevant for type LoadBalancer or NodePort)
+  nodePort:
+  ## The cluster ip address (only relevant for type LoadBalancer or NodePort)
+  clusterIP:
+  ## The loadbalancer ip address (only relevant for type LoadBalancer)
+  loadBalancerIP:
+  # Annotations to add to the service
+  annotations: {}
+
+## Ingress configuration
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+    # nginx.ingress.kubernetes.io/server-snippet: |
+    #   location ~* "^/metrics" {
+    #       deny all;
+    #       return 403;
+    #     }
+  hosts:
+  - host: book.example.com
+    paths:
+    - path: /
+      pathType: ImplementationSpecific
+  tls: []
+  # - secretName: book-example-com-tls
+  #   hosts:
+  #   - book.example.com
+
+## Resource limits and requests
+resources:
+  limits:
+    memory: 256M
+  requests:
+    cpu: 50m
+    memory: 32M
+
+## Additional node selector
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+## Maximum number of revisions maintained in revision history
+revisionHistoryLimit: 3
+
+## Custom startup probe (overwrites default startup probe)
+customStartupProbe: {}
+
+## Default startup probe
+startupProbe:
+  enabled: false
+  initialDelaySeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 30
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom liveness probe (overwrites default liveness probe)
+customLivenessProbe: {}
+
+## Default liveness probe
+livenessProbe:
+  enabled: false
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Custom readiness probe (overwrites default readiness probe)
+customReadinessProbe: {}
+
+## Default readiness probe
+readinessProbe:
+  enabled: false
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+  successThreshold: 1
+  periodSeconds: 10
+
+## Additional environment variables
+env: []
+
+## Arguments for the container entrypoint process
+args: []
+
+database:
+  ## Name of the database (default: bookstack)
+  name: bookstack
+
+  ## Database settings
+  ## Password comes from customSecrets.databasePassword
+  user: bookstack
+  host: db.host
+  port: 3306
+
+## bookstack specific configuration
+settings:
+  ## Default URL (for generated links)
+  url: https://book.example.com
+
+  debug: false
+  sessionLifetime: 1656
+  tz: UTC
+
+  authSaml2:
+    enabled: false
+    autoloadMetadata: true
+    displayNameAttribute: "firstName|lastName"
+    emailAttribute: "email"
+    externalIdAttribute: "email"
+    groupAttribute: "Role"
+    idpAuthnContent: true
+    idpEntityId: https://sso.example.com/auth/realms/company/protocol/saml/descriptor
+    name: "My SSO"
+    removeFromGroups: true
+    userToGroups: true
+
+  ## SMTP connection details
+  ## Username and password come from customSecrets.smtpUser & customSecrets.smtpPassword
+  mail:
+    enabled: true
+    transport: smtp
+    encryption: tls
+    from: noreply@book.example.com
+    displayName: My Book
+    host: email-smtp.eu-central-1.amazonaws.com
+    port: 465
+
+## Storage parameters
+storage:
+  ##  Set persistentVolumenClaimName to reference an existing PVC
+  persistentVolumeClaimName:
+
+  ## Alternative set requestedSize to define a size for a dynmaically created PVC
+  requestedSize: 5Gi
+  className: "gp3-retain"
+  accessModes:
+    - ReadWriteOnce
+
+  ## Keep a created Persistent volume claim when uninstalling the helm chart
+  keepPvc: false
