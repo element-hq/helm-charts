@@ -1,0 +1,26 @@
+suite: test service
+templates:
+  - templates/service.yaml
+tests:
+  - it: should pass
+    release:
+      name: mybook
+    set:
+      service:
+        type: ClusterIP
+    asserts:
+      - contains:
+          path: spec.ports
+          content:
+            name: http
+            port: 80
+            protocol: TCP
+            targetPort: http
+      - equal:
+          path: spec.type
+          value: ClusterIP
+      - equal:
+          path: spec.selector
+          value:
+            app.kubernetes.io/name: bookstack
+            app.kubernetes.io/instance: mybook
