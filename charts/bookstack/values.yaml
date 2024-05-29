@@ -160,7 +160,7 @@ settings:
     emailAttribute: "email"
     externalIdAttribute: "email"
     groupAttribute: "Role"
-    idpAuthnContent: true
+    idpAuthnContext: true
     idpEntityId: https://sso.example.com/auth/realms/company/protocol/saml/descriptor
     name: "My SSO"
     removeFromGroups: true

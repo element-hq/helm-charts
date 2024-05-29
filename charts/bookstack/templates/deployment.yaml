@@ -82,7 +82,7 @@ spec:
             - name: SAML2_GROUP_ATTRIBUTE
               value: {{ .groupAttribute | quote }}
             - name: SAML2_IDP_AUTHNCONTEXT
-              value: {{ .idpAuthnContent | quote }}
+              value: {{ .idpAuthnContext | quote }}
             - name: SAML2_IDP_ENTITYID
               value: {{ .idpEntityId | quote }}
             - name: SAML2_NAME
