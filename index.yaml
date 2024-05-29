@@ -3,6 +3,18 @@ entries:
   bookstack:
   - apiVersion: v2
     appVersion: version-v23.02.1
+    created: "2024-05-29T09:08:46.101885432Z"
+    description: A Helm chart for running bookstack on Kubernetes
+    digest: d3b608bd4521c9fcf258f06156f24ce5d98ec0cab1a260e22a4376fbe596228c
+    maintainers:
+    - name: Element SRE Team
+    name: bookstack
+    type: application
+    urls:
+    - https://github.com/element-hq/helm-charts/releases/download/bookstack-0.1.1/bookstack-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v2
+    appVersion: version-v23.02.1
     created: "2024-05-10T09:39:51.349942491Z"
     description: A Helm chart for running bookstack on Kubernetes
     digest: faa725ad2913b0ec0b4b5e82cac5cd659bdd28019b6454f31bd724eb189e82cf
@@ -269,4 +281,4 @@ entries:
     urls:
     - https://github.com/vector-im/helm-charts/releases/download/mscbot-0.1.0/mscbot-0.1.0.tgz
     version: 0.1.0
-generated: "2024-05-28T21:50:51.29791132Z"
+generated: "2024-05-29T09:08:46.101962485Z"
