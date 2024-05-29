@@ -29,17 +29,17 @@ serviceAccount:
 podAnnotations: {}
 
 ## Pod security options
-podSecurityContext:
-  fsGroup: 1000
+podSecurityContext: {}
+  # fsGroup: 1000
 
-## Default security options to run bookstack as read only container without privilege escalation
-securityContext:
-  allowPrivilegeEscalation: false
-  privileged: false
-  readOnlyRootFilesystem: true
-  runAsNonRoot: true
-  runAsGroup: 1000
-  runAsUser: 1000
+## Default security options
+securityContext: {}
+  # allowPrivilegeEscalation: false
+  # privileged: false
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsGroup: 1000
+  # runAsUser: 1000
 
 ## Default bookstack service port (default web service port)
 service:
@@ -160,7 +160,7 @@ settings:
     emailAttribute: "email"
     externalIdAttribute: "email"
     groupAttribute: "Role"
-    idpAuthnContent: true
+    idpAuthnContext: true
     idpEntityId: https://sso.example.com/auth/realms/company/protocol/saml/descriptor
     name: "My SSO"
     removeFromGroups: true
