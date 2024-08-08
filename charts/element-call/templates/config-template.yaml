@@ -4,22 +4,4 @@ metadata:
   name: {{ .Release.Name }}-configmap
 data:
   config.json: |
-    {
-      "default_server_config": {
-        "m.homeserver": {
-          "base_url": "{{ .Values.config.homeserver.base_url }}",
-          "server_name": "{{ .Values.config.homeserver.server_name }}"
-        }
-      },
-      "livekit": {
-        "livekit_service_url": "{{ .Values.config.livekit.livekit_service_url }}"
-      },
-      "posthog": {
-        "api_key": "{{ .Values.config.posthog.api_key }}",
-        "api_host": "{{ .Values.config.posthog.api_host }}"
-      },
-      "rageshake": {
-        "submit_url": "{{ .Values.config.rageshake.submit_url }}"
-      },
-      "eula": "{{ .Values.config.eula_url }}"
-    }
+    {{ toPrettyJson .Values.config | nindent 4 }}
