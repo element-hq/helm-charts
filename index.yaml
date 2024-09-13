@@ -301,6 +301,17 @@ entries:
     urls:
     - https://github.com/vector-im/helm-charts/releases/download/ghost-0.81.0/ghost-0.81.0.tgz
     version: 0.81.0
+  github-matrix-project-bot:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2024-09-13T19:34:25.252736305Z"
+    description: Deploys github-matrix-project-bot
+    digest: ad3ca5b89a94e9065e3a684efca5572565a863905251db0b187e9799d78ae43a
+    name: github-matrix-project-bot
+    type: application
+    urls:
+    - https://github.com/element-hq/helm-charts/releases/download/github-matrix-project-bot-0.1.0/github-matrix-project-bot-0.1.0.tgz
+    version: 0.1.0
   mscbot:
   - apiVersion: v2
     appVersion: release-v0.1.7
@@ -313,4 +324,4 @@ entries:
     urls:
     - https://github.com/vector-im/helm-charts/releases/download/mscbot-0.1.0/mscbot-0.1.0.tgz
     version: 0.1.0
-generated: "2024-08-08T15:01:50.522488881Z"
+generated: "2024-09-13T19:34:25.253135565Z"
