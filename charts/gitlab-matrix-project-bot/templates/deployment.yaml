@@ -1,19 +1,19 @@
-{{- $githubSecret := ternary .Values.config.github.existingSecret ( printf "%s-%s" (include "gitlab-matrix-project-bot.fullname" .) "github" ) .Values.config.github.useExistingSecret -}}
-{{- $matrixSecret := ternary .Values.config.matrix.existingSecret ( printf "%s-%s" (include "gitlab-matrix-project-bot.fullname" .) "matrix" ) .Values.config.matrix.useExistingSecret -}}
+{{- $githubSecret := ternary .Values.config.github.existingSecret ( printf "%s-%s" (include "github-matrix-project-bot.fullname" .) "github" ) .Values.config.github.useExistingSecret -}}
+{{- $matrixSecret := ternary .Values.config.matrix.existingSecret ( printf "%s-%s" (include "github-matrix-project-bot.fullname" .) "matrix" ) .Values.config.matrix.useExistingSecret -}}
 
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "gitlab-matrix-project-bot.fullname" . }}
+  name: {{ include "github-matrix-project-bot.fullname" . }}
   labels:
-    {{- include "gitlab-matrix-project-bot.labels" . | nindent 4 }}
+    {{- include "github-matrix-project-bot.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "gitlab-matrix-project-bot.selectorLabels" . | nindent 6 }}
+      {{- include "github-matrix-project-bot.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -21,7 +21,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "gitlab-matrix-project-bot.labels" . | nindent 8 }}
+        {{- include "github-matrix-project-bot.labels" . | nindent 8 }}
         {{- with .Values.podLabels }}
         {{- toYaml . | nindent 8 }}
         {{- end }}
@@ -30,7 +30,7 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "gitlab-matrix-project-bot.serviceAccountName" . }}
+      serviceAccountName: {{ include "github-matrix-project-bot.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:

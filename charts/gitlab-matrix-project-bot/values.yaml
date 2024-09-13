@@ -1,4 +1,4 @@
-# Default values for gitlab-matrix-project-bot.
+# Default values for github-matrix-project-bot.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
@@ -106,7 +106,7 @@ tolerations: []
 
 affinity: {}
 
-# Configuration for the gitlab-matrix-project-bot itself
+# Configuration for the github-matrix-project-bot itself
 config:
   # Set rust log level
   logLevel: "info"

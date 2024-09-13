@@ -1,6 +1,6 @@
 apiVersion: v2
-name: gitlab-matrix-project-bot
-description: Deploys gitlab-matrix-project-bot
+name: github-matrix-project-bot
+description: Deploys github-matrix-project-bot
 
 # A chart can be either an 'application' or a 'library' chart.
 #

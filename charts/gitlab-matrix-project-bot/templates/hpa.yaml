@@ -2,14 +2,14 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "gitlab-matrix-project-bot.fullname" . }}
+  name: {{ include "github-matrix-project-bot.fullname" . }}
   labels:
-    {{- include "gitlab-matrix-project-bot.labels" . | nindent 4 }}
+    {{- include "github-matrix-project-bot.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: {{ include "gitlab-matrix-project-bot.fullname" . }}
+    name: {{ include "github-matrix-project-bot.fullname" . }}
   minReplicas: {{ .Values.autoscaling.minReplicas }}
   maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
