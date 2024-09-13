@@ -105,3 +105,29 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+# Configuration for the gitlab-matrix-project-bot itself
+config:
+  # Set rust log level
+  logLevel: "info"
+
+  # GitHub authentication
+  github:
+    # set useExistingSecret to `true` and set existingSecret name if secret already exists
+    useExistingSecret: false
+    existingSecret: null
+
+    # GitHub username
+    username: "changeme"
+    # GitHub token
+    token: "imnotatoken"
+
+  matrix:
+    # set useExistingSecret to `true` and set existingSecret name if secret already exists
+    useExistingSecret: false
+    existingSecret: null
+
+    # URL of homeserver
+    url: "https://synapse.foo.bar"
+    # Auth token for user on homeserver
+    token: "imnotatoken"
