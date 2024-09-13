@@ -304,6 +304,16 @@ entries:
   github-matrix-project-bot:
   - apiVersion: v2
     appVersion: master
+    created: "2024-09-13T21:16:42.165684581Z"
+    description: Deploys github-matrix-project-bot
+    digest: 71657009ac65bf231c16cb70a5464efc231eee6630de406951fc9ab11cfee8ff
+    name: github-matrix-project-bot
+    type: application
+    urls:
+    - https://github.com/element-hq/helm-charts/releases/download/github-matrix-project-bot-0.1.2/github-matrix-project-bot-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: master
     created: "2024-09-13T19:45:29.530920756Z"
     description: Deploys github-matrix-project-bot
     digest: 3a082e9108c1294a43544cdce5a98b6497837fd8b83fb237f800b0e7aeba9cef
@@ -334,4 +344,4 @@ entries:
     urls:
     - https://github.com/vector-im/helm-charts/releases/download/mscbot-0.1.0/mscbot-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-13T19:45:29.530975078Z"
+generated: "2024-09-13T21:16:42.165742469Z"
