@@ -1,3 +1,6 @@
+{{- $githubSecret := ternary .Values.config.github.existingSecret ( printf "%s-%s" (include "gitlab-matrix-project-bot.fullname" .) "github" ) .Values.config.github.useExistingSecret -}}
+{{- $matrixSecret := ternary .Values.config.matrix.existingSecret ( printf "%s-%s" (include "gitlab-matrix-project-bot.fullname" .) "matrix" ) .Values.config.matrix.useExistingSecret -}}
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -32,6 +35,11 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          envFrom:
+          - secretRef:  
+              name: {{ $githubSecret }}
+          - secretRef:
+              name: {{ $matrixSecret }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -46,12 +54,19 @@ spec:
             {{- toYaml .Values.readinessProbe | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- with .Values.volumeMounts }}
+
           volumeMounts:
+          {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
-      {{- with .Values.volumes }}
       volumes:
+      - name: github
+        secret:
+          secretName: {{ $githubSecret }}
+      - name: matrix
+        secret:
+          secretName: {{ $matrixSecret }}
+      {{- with .Values.extraVolumes }}
         {{- toYaml . | nindent 8 }}
       {{- end }}
       {{- with .Values.nodeSelector }}
