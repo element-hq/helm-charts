@@ -86,8 +86,6 @@ config:
     m.homeserver:
       base_url: http://localhost:8008
       server_name: localhost
-  livekit:
-    livekit_service_url: https://localhost/
   posthog:
     api_key:
     api_host: https://localhost
