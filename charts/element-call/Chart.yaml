@@ -12,4 +12,4 @@ version: "0.2.2"
 # to the application.
 # Track the appVersion based on the image:
 # renovate: image=ghcr.io/element-hq/element-call
-appVersion: "v0.5.14"
+appVersion: "v0.6.6"
