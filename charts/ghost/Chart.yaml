@@ -8,4 +8,4 @@ maintainers:
 version: "0.84.3"
 # Track the appVersion based on the image:
 # renovate: image=ghost
-appVersion: "5.69.2-alpine"
+appVersion: "5.96.0-alpine"
