@@ -9,6 +9,7 @@ metadata:
   {{- if .Values.storage.keepPvc }}
   annotations:
     "helm.sh/resource-policy": keep
+    "argocd.argoproj.io/sync-options": Prune=false,Delete=false
   {{- end }}
 spec:
   {{- with .Values.storage }}
